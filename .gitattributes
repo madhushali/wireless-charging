@@ -1,2 +1,52 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+#define volt A0
+float Vo = 0.0, Vi = 0.0, R1 = 30000.0, R2 = 7500.0, percentage = 0.0;
+int val = 0;
+
+void setup() {
+  pinMode(volt, INPUT);
+  Serial.begin(9600);
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+  delay(2000);
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println("EV CHARGE");
+  display.println("Voltage");
+  display.println("Monitoring");
+  display.display();
+  delay(5000);
+  display.clearDisplay();
+}
+
+void loop() {
+  val = analogRead(volt);
+  Vo = (val * 5.0) / 1023.0;
+  Vi = Vo / (R2 / (R1 + R2));
+  display.clearDisplay();
+
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println(Vi);
+  display.println("volts");
+  display.display();
+  delay(3000);
+}
