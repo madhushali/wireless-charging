@@ -13,10 +13,12 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,  Wire, -1);
 float Vo=0.0, Vi=0.0, R1=30000.0, R2=7500.0, percentage=0.0;
 int val=0;
 
-void setup() {
+void setup() 
+{
                pinMode(volt, INPUT);
                 Serial.begin(9600);
-                if (display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+                if (display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) 
+{
                 Serial.println(F("SSD1306 allocation failed"));
                 for (;;)
       }
