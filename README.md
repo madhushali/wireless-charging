@@ -1,17 +1,17 @@
 Solar Powered Wireless Charging Station for Electric Vehicles
 Welcome to the Solar Powered Wireless Charging Station for Electric Vehicles (EVs) project! This README file provides information on how to set up, use, and maintain the charging station. Our innovative solution combines solar energy and wireless charging technology to provide a sustainable and convenient way to charge your electric vehicle.
 
-Table of Contents
-Overview
-Features
-System Requirements
-Installation Instructions
-Usage Instructions
-Maintenance
-Troubleshooting
-Safety Information
-Contact Support
-Overview
+Table of Contents: 
+Overview,
+Features,
+System Requirements,
+Installation Instructions,
+Usage Instructions,
+Maintenance,
+Troubleshooting,
+Safety Information.
+
+OvervieW
 The Solar Powered Wireless Charging Station leverages solar panels to convert sunlight into electrical energy, which is then used to wirelessly charge compatible electric vehicles. This system offers an eco-friendly solution to meet your EV charging needs without relying on grid power.
 
 Features
