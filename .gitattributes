@@ -35,9 +35,10 @@ void setup() {
   display.clearDisplay();
 }
 
-void loop() {
+void loop()
+{
   val=analogRead(volt);
-  Vo=(val * 5.0)/1023.0;
+  Vo=(val*5.0)/1023.0;
   Vi=Vo/( R2/(R1+R2));
   display.clearDisplay();
 
