@@ -17,7 +17,7 @@ void setup()
 {
                pinMode(volt, INPUT);
                 Serial.begin(9600);
-                if (display(SSD1306display(SCREEN_WIDTH, SCREEN_HEIGHT,  Wire, -1))) 
+                if (display(SSD1306( SCREEN_HEIGHT,  Wire, -1))) 
 {
                 Serial.println(F("SSD1306 allocation failed"));
                 for (;;)
