@@ -6,50 +6,64 @@
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-#define SWITCHCAPVCC 3
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,  Wire, -1);
+#define OLED_RESET    -1
+#define SCREEN_ADDR   0x3C
+#define VOLTAGE_PIN   A0
 
-#define volt A0
-float Vo=0.0, Vi=0.0, R1=30000.0, R2=7500.0, percentage=0.0;
-int val=0;
+// Create an instance of the display
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-void setup() 
-{
-               pinMode(volt, INPUT);
-                Serial.begin(9600);
-{
-                 if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
-                Serial.println(F("SSD1306 allocation failed"));
-               
+// Resistor values (in ohms)
+const float R1 = 30000.0; // High resistor
+const float R2 = 7500.0;  // Low resistor
+
+void setup() {
+  pinMode(VOLTAGE_PIN, INPUT);
+  Serial.begin(9600);
+
+  // Initialize the display
+  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDR)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;); // Loop forever if display fails to initialize
+  }
+
+  delay(2000); // Pause for 2 seconds
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+
+  // Display static text
+  display.println("EV CHARGE");
+  display.println("Voltage");
+  display.println("Monitoring");
+  display.display();
+  delay(5000); // Display static text for 5 seconds
 }
-  }
-  delay(2000);
-  display.clearDisplay();
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 10);
-  Display static text
-  display.println("EV CHARGE");
-  display.println("Voltage");
-  display.println("Monitoring");
-  display.display();
-  delay(5000);
-  display.clearDisplay();
-}
 
-void loop()
-{
-  val=analogRead(volt);
-  Vo=(val*5.0)/1023.0;
-  Vi=Vo/( R2/(R1+R2));
-  display.clearDisplay();
+void loop() {
+  // Read the analog voltage
+  int val = analogRead(VOLTAGE_PIN);
 
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.setCursor(0, 10);
-  Display static text
-  display.println(Vi);
-  display.println("volts");
-  display.display();
-  delay(3000);
+  // Convert the analog value to voltage (assuming 5V reference)
+  float Vo = (val * 5.0) / 1023.0;
+
+  // Calculate the input voltage based on resistor values
+  float Vi = Vo * (R1 + R2) / R2;
+
+  // Clear the display
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+
+  // Display the voltage value
+  display.print(Vi, 2); // Print with 2 decimal places
+  display.println(" volts");
+
+  // Update the display
+  display.display();
+
+  // Wait before the next loop iteration
+  delay(3000); // Update display every 3 seconds
 }
