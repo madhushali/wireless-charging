@@ -3,7 +3,6 @@ Welcome to the Solar Powered Wireless Charging Station for Electric Vehicles (EV
 
 Table of Contents: 
 Overview,
-
 Features,
 System Requirements,
 Installation Instructions,
